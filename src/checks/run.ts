@@ -153,7 +153,7 @@ async function runOne(name: string, opts: any, c: Ctx): Promise<CheckResult[]> {
       }];
     }
     case 'lighthouse': {
-      const s = await runLighthouse(c.server!.url, c.outDir);
+      const s = await runLighthouse(c.server!.url, c.outDir, 'lighthouse', opts.preset === 'desktop' ? 'desktop' : 'mobile');
       const min: Record<string, number> = opts.min ?? {};
       const scores: Record<string, number | null> = {
         performance: s.performance, accessibility: s.accessibility, 'best-practices': s.bestPractices, seo: s.seo,

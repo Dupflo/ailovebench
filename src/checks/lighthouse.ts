@@ -1,6 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import lighthouse from 'lighthouse';
+import desktopConfig from 'lighthouse/core/config/desktop-config.js';
 import * as chromeLauncher from 'chrome-launcher';
 import { chromium } from 'playwright';
 import { ensureBrowser } from './browser.js';
@@ -15,10 +16,11 @@ export interface LighthouseScores {
 }
 
 /**
- * Lighthouse with its default mobile profile, on the Chromium bundled with Playwright so every
- * machine runs the same browser. Scores are 0–100.
+ * Lighthouse with its default mobile profile (or the desktop one, for products meant for a large
+ * screen like a slide deck), on the Chromium bundled with Playwright so every machine runs the same
+ * browser. Scores are 0–100.
  */
-export async function runLighthouse(url: string, outDir: string, prefix = 'lighthouse'): Promise<LighthouseScores> {
+export async function runLighthouse(url: string, outDir: string, prefix = 'lighthouse', preset: 'mobile' | 'desktop' = 'mobile'): Promise<LighthouseScores> {
   await ensureBrowser();
   const chrome = await chromeLauncher.launch({
     chromePath: chromium.executablePath(),
@@ -30,7 +32,7 @@ export async function runLighthouse(url: string, outDir: string, prefix = 'light
       output: 'html',
       logLevel: 'error',
       onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
-    });
+    }, preset === 'desktop' ? desktopConfig : undefined);
     if (!result) throw new Error(tr('Lighthouse n\'a rien renvoyé', 'Lighthouse returned nothing'));
     const report = path.join(outDir, `${prefix}.html`);
     await writeFile(report, Array.isArray(result.report) ? result.report[0]! : result.report);

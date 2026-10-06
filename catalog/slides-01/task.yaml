@@ -1,0 +1,20 @@
+id: slides-01
+title: Deck de présentation (slides)
+category: Slides / présentation
+timeout_min: 30
+prompt: prompt.md
+deliverable:
+  install: npm install
+  build: npm run build
+  static_dir: dist
+  entry: index.html
+budget:
+  minutes: 15
+checks:
+  - build
+  - console
+  - external_requests
+  - responsive: { widths: [1280] }
+  # Desktop profile: a deck scaled down to a phone width paints nothing Lighthouse counts (NO_FCP).
+  - lighthouse: { min: { accessibility: 90 }, preset: desktop }
+  - scenario: hidden/scenarios.mjs

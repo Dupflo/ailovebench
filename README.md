@@ -110,6 +110,7 @@ English (`AILOVEBENCH_LANG=en` to force).
 | `3d-01` | An interactive Three.js solar system | WebGL canvas, animation, frame rate, drag / zoom interaction |
 | `fix-01` | Repair a checkout page shipped with 12 planted bugs | provided + hidden tests, UI scenarios, contrast, focus — each planted bug detected on the original, then re-checked |
 | `motion-01` | A 10-second launch video (MP4) and the page that plays it | codec, resolution, duration, fps, no black or frozen frames, contact sheet |
+| `slides-01` | A 10-slide investor pitch deck (HTML, 16:9) | one slide at a time, keyboard navigation, slide counter, no text overflowing or clipped at 1280×720 and 1920×1080, minimum font size, exact figures, SVG/canvas chart, comparison table, Lighthouse (desktop) |
 
 Have an idea of your own? Pick **"Bench my idea instead"** in the wizard: describe it, and it
 becomes a task run on every selected model. Task prompts are currently written in French.
