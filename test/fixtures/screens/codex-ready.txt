@@ -1,0 +1,5 @@
+  >_ OpenAI Codex (v0.159.3)
+  permissions: YOLO mode
+› Ask Codex to do anything
+  GPT-6-Astra medium · ~/.ailovebench/runs/r1/web-01__gpt-6-astra__bare/work
+  ? for shortcuts                                                   ⚠ 2 warnings · f2 to view

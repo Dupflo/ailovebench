@@ -1,0 +1,23 @@
+{
+  "notes": "Maps the raw plan identifiers each agent CLI exposes locally to a readable label. Unknown identifiers are shown raw.",
+  "claude": {
+    "source_field": "~/.claude.json → oauthAccount.organizationRateLimitTier",
+    "tiers": {
+      "default_claude_max_5x": { "label": "Claude Max 5x", "monthly_usd": 100 },
+      "default_claude_max_20x": { "label": "Claude Max 20x", "monthly_usd": 200 }
+    },
+    "checked_at": "2026-10-01"
+  },
+  "codex": {
+    "source_field": "rollout token_count → rate_limits.plan_type",
+    "tiers": {
+      "free": { "label": "ChatGPT Free" },
+      "plus": { "label": "ChatGPT Plus" },
+      "pro": { "label": "ChatGPT Pro" },
+      "team": { "label": "ChatGPT Team" },
+      "business": { "label": "ChatGPT Business" },
+      "enterprise": { "label": "ChatGPT Enterprise" }
+    },
+    "checked_at": "2026-10-01"
+  }
+}

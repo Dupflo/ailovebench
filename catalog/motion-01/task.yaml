@@ -1,0 +1,18 @@
+id: motion-01
+title: Vidéo de lancement (motion design)
+category: Motion design / vidéo
+timeout_min: 40
+prompt: prompt.md
+deliverable:
+  install: npm install
+  build: npm run build
+  static_dir: dist
+  entry: index.html
+budget:
+  minutes: 20
+checks:
+  - build
+  - console
+  - external_requests
+  - video: { file: lumio.mp4, duration: [9.5, 10.5], width: 1920, height: 1080, fps: 30 }
+  - scenario: hidden/scenarios.mjs

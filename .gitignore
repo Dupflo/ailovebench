@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+
+# Layout notes from AInnotations
+annotations.md
+annotations/
+
+# Local notes and generated knowledge graph
+docs-internal/
+graphify-out/
+BRIEF*.md

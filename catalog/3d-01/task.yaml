@@ -1,0 +1,19 @@
+id: 3d-01
+title: Système solaire en 3D
+category: 3D / WebGL
+timeout_min: 30
+prompt: prompt.md
+deliverable:
+  install: npm install
+  build: npm run build
+  static_dir: dist
+  entry: index.html
+budget:
+  minutes: 15
+checks:
+  - build
+  - console
+  - external_requests
+  - responsive: { widths: [375, 1440] }
+  - webgl: { min_fps: 30 }
+  - scenario: hidden/scenarios.mjs

@@ -1,0 +1,87 @@
+id: fix-01
+title: Réparer une page de paiement
+category: Correction de bugs (code + interface)
+timeout_min: 25
+prompt: prompt.md
+starter: starter
+# The starter (buggy version) is also built and captured: before / after.
+before_after: true
+deliverable:
+  install: npm install
+  build: npm run build
+  static_dir: dist
+  entry: index.html
+budget:
+  minutes: 10
+checks:
+  - build
+  - console
+  - responsive: { widths: [375, 768, 1440] }
+  - lighthouse: { min: { accessibility: 95 } }
+  - scenario: hidden/scenarios.mjs
+  - visible_tests: { command: "node --test --test-reporter=tap test/*.test.js" }
+  - hidden_tests: { dir: hidden, command: "node --test --test-reporter=tap hidden-tests/*.test.js" }
+  - untouched: [test/cart.test.js]
+# The bugs planted in the starter, explained. Each proof is a check (or one named test of a
+# test check): the bench runs them on the original version, then on each fixed version.
+known_bugs:
+  - id: subtotal_quantity
+    title: Le sous-total ignore les quantités
+    where: src/cart.js · subtotal()
+    symptom: 2 stylos sont comptés comme 1 ; le total TTC du panier de départ est faux (29,28 € au lieu de 33,96 €).
+    evidence: ["hidden_tests:subtotal : plusieurs lignes", "hidden_tests:subtotal : ligne de quantité 0 ignorée", "hidden_tests:total sans code", scenario.total_start, scenario.pay_label]
+  - id: percent_discount
+    title: BIENVENUE10 retire 10 centimes au lieu de 10 %
+    where: src/cart.js · applyDiscount()
+    symptom: la remise en pourcentage est soustraite comme un montant fixe, sans l'arrondi au centime prévu.
+    evidence: ["hidden_tests:BIENVENUE10 : arrondi au centime, 0,5 vers le haut", "hidden_tests:BIENVENUE10 : arrondi vers le bas sous 0,5", "hidden_tests:total avec BIENVENUE10"]
+  - id: negative_total
+    title: MOINS5 peut rendre le total négatif
+    where: src/cart.js · applyDiscount()
+    symptom: un panier à 3 € avec MOINS5 coûte −2 € au lieu de 0 €.
+    evidence: ["hidden_tests:MOINS5 : jamais négatif", "hidden_tests:total ne passe jamais sous 0"]
+  - id: code_case
+    title: Les codes promo sont sensibles à la casse
+    where: src/cart.js · applyDiscount()
+    symptom: « bienvenue10 » est refusé comme code inconnu.
+    evidence: ["hidden_tests:codes insensibles à la casse"]
+  - id: price_format
+    title: Prix au format anglais
+    where: src/cart.js · formatPrice()
+    symptom: « 1234.50 € » au lieu de « 1 234,50 € ».
+    evidence: ["hidden_tests:formatPrice : milliers", "hidden_tests:formatPrice : zéro", "hidden_tests:formatPrice : centimes seuls"]
+  - id: line_total
+    title: Le total d'une ligne ignore la quantité
+    where: src/app.js · rendu des lignes
+    symptom: « Stylo bambou × 2 » affiche 3,90 € au lieu de 7,80 €.
+    evidence: [scenario.line_totals]
+  - id: plus_wrong_line
+    title: « + » augmente la ligne suivante et plante sur la dernière
+    where: src/app.js · gestion des clics (index + 1)
+    symptom: cliquer sur + du stylo augmente le carnet ; sur la dernière ligne, erreur JavaScript.
+    evidence: [scenario.plus_right_line, scenario.plus_last_line, scenario.no_js_errors]
+  - id: remove_two
+    title: « Retirer » supprime deux lignes
+    where: src/app.js · gestion des clics (splice(i, 2))
+    symptom: retirer un article fait aussi disparaître le suivant.
+    evidence: [scenario.remove_one]
+  - id: promo_no_render
+    title: Un code promo valide ne met pas le total à jour
+    where: src/app.js · formulaire du code (pas de nouveau rendu)
+    symptom: le code est accepté mais le total et le bouton Payer ne bougent pas.
+    evidence: [scenario.promo_updates, scenario.promo_pay_label]
+  - id: mobile_overflow
+    title: La page déborde sur mobile
+    where: src/style.css · .summary (largeur fixe de 420 px)
+    symptom: défilement horizontal à 375 px et 768 px.
+    evidence: [responsive]
+  - id: pay_contrast
+    title: Bouton Payer illisible
+    where: src/style.css · .pay
+    symptom: texte blanc sur jaune pâle, contraste 1,2:1 (minimum WCAG 4,5:1).
+    evidence: [scenario.pay_contrast]
+  - id: focus_hidden
+    title: Focus clavier invisible
+    where: "src/style.css · *:focus { outline: none }"
+    symptom: en navigant au clavier, on ne voit pas l'élément actif.
+    evidence: [scenario.focus_visible]

@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lumio</title>
+<meta name="description" content="Fixture">
+<style>body{font-family:system-ui;margin:0;padding:1rem;max-width:100%}button{font-size:1rem}</style></head>
+<body><main><h1>Lumio</h1><a href="#tarifs">Essayer gratuitement</a>
+<section id="tarifs"><h2>Tarifs</h2><p>Gratuit</p><p>Plus 4 €/mois</p><p>Équipe 12 €/mois</p></section>
+<section id="faq"><h2>FAQ</h2>
+<button aria-expanded="false" aria-controls="a1" id="q1">Question ?</button><div id="a1" hidden>Réponse</div></section></main>
+<script>const b=document.getElementById('q1');b.addEventListener('click',()=>{const o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));document.getElementById('a1').hidden=o;});</script>
+</body></html>

@@ -1,0 +1,62 @@
+{
+  "name": "ailovebench",
+  "version": "0.1.1",
+  "description": "Stop trusting AI companies' benchmarks. Bench your own AI coding agents (Claude Code, Codex, Cursor) on real tasks, on your machine, with your subscriptions.",
+  "keywords": [
+    "benchmark",
+    "ai",
+    "coding-agents",
+    "claude-code",
+    "codex",
+    "cursor",
+    "llm",
+    "evaluation",
+    "cli"
+  ],
+  "homepage": "https://github.com/Dupflo/ailovebench#readme",
+  "bugs": {
+    "url": "https://github.com/Dupflo/ailovebench/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dupflo/ailovebench.git"
+  },
+  "license": "MIT",
+  "author": "Florian Dupuis",
+  "type": "module",
+  "bin": {
+    "ailovebench": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "data",
+    "catalog",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "@types/pngjs": "^6.0.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.7.2",
+    "chrome-launcher": "^1.2.2",
+    "lighthouse": "^13.5.0",
+    "playwright": "^1.63.0",
+    "pngjs": "^7.0.0",
+    "yaml": "^2.9.1"
+  }
+}

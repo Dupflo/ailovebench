@@ -1,0 +1,7 @@
+▗ ▗   ▖ ▖  Claude Code v2.1.285
+           Sonnet 5.5 · Claude Max
+⚠ Safe mode: all customizations are disabled (CLAUDE.md, skills, plugins, hooks, MCP, agents, and more)
+────────────────────────────────────────
+❯ Try "write a test for <filepath>"
+────────────────────────────────────────
+  ⏵⏵ bypass permissions on (shift+tab to cycle) · ← for agents

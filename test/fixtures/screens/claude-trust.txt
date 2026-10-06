@@ -1,0 +1,6 @@
+ Accessing workspace:
+ /Users/someone/.ailovebench/runs/r1/web-01__sonnet__bare/work
+ Quick safety check: Is this a project you created or one you trust? (Like your own code, a well-known open source project, or work from your team). If not, take a moment to review what's in this folder first.
+ ❯ No, exit
+   Yes, I trust this folder
+ Enter to confirm · Esc to cancel

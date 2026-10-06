@@ -1,0 +1,22 @@
+id: web-01
+title: Landing page produit
+category: Site web / frontend
+timeout_min: 30
+prompt: prompt.md
+# Delivery contract, the same for every agent (used by QA).
+deliverable:
+  install: npm install
+  build: npm run build
+  static_dir: dist
+  entry: index.html
+# Rough duration used for the quota check, refined by real runs.
+budget:
+  minutes: 15
+# Automatic checks (QA, round 0). The hidden/ folder is never shown to the agent.
+checks:
+  - build
+  - console
+  - external_requests
+  - responsive: { widths: [375, 768, 1440] }
+  - lighthouse: { min: { accessibility: 90 } }
+  - scenario: hidden/scenarios.mjs

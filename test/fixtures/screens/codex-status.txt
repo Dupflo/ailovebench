@@ -1,0 +1,8 @@
+  Model:               GPT-6-Astra (reasoning medium, summaries auto)
+  Model provider:      openai
+  Directory:           ~/.ailovebench/runs/r1/web-01__gpt-6-astra__bare/work
+  Account:             Plus
+  5h limit:            [████████████████████] 97% left (resets 19:29)
+  Weekly limit:        [██████████████████░░] 88% left (resets 14:29 on 8 Oct)
+  GPT-6-Astra medium · ~/.ailovebench/runs/r1/web-01__gpt-6-astra__bare/work
+  ? for shortcuts

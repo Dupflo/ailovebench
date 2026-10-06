@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumio Shop · Paiement</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <span class="brand">lumio<span class="dot">.</span> shop</span>
+    <span class="secure">Paiement sécurisé</span>
+  </header>
+
+  <main class="checkout">
+    <section class="cart" aria-labelledby="cart-title">
+      <h1 id="cart-title">Ton panier</h1>
+      <ul class="lines" id="lines"></ul>
+      <p class="empty" id="empty" hidden>Ton panier est vide.</p>
+    </section>
+
+    <aside class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Récapitulatif</h2>
+      <form class="promo" id="promo">
+        <label for="promo-code">Code promo</label>
+        <div class="promo-row">
+          <input id="promo-code" name="code" autocomplete="off" placeholder="BIENVENUE10">
+          <button type="submit">Appliquer</button>
+        </div>
+        <p class="promo-msg" id="promo-msg" role="status"></p>
+      </form>
+      <dl class="totals">
+        <div><dt>Sous-total</dt><dd id="subtotal"></dd></div>
+        <div><dt>Remise</dt><dd id="discount"></dd></div>
+        <div><dt>TVA (20 %)</dt><dd id="vat"></dd></div>
+        <div class="total"><dt>Total TTC</dt><dd id="total"></dd></div>
+      </dl>
+      <button class="pay" id="pay" type="button">Payer</button>
+    </aside>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
