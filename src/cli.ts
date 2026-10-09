@@ -72,6 +72,14 @@ Utilisation :
       --limit <n>           seulement les n premières requêtes (ordre chronologique)
       --mark <phase=ISO>    début d'une phase (répétable), ex. --mark build=2026-10-01T10:00:00Z
       --json                sortie lisible par une machine
+
+  ailovebench project [dossier] [--since <date|ISO>] [--until <date|ISO>] [--json] [--write [fichier.md]]
+      Coût d'un projet : toutes les sessions Claude Code et Codex (applis de bureau, terminal, exec,
+      sous-agents) lancées dans ce dossier (par défaut : le dossier courant) ou un sous-dossier.
+      Tokens, coût équivalent API par outil et par modèle, période, durée active. Non interactif.
+      --since / --until     bornes de la période (2026-10-01 = toute la journée, ou une date ISO)
+      --write [fichier.md]  écrit aussi un rapport Markdown (par défaut docs/couts.md dans le dossier)
+      --json                sortie lisible par une machine
 `, `ailovebench — Stop trusting AI companies' benchmarks. Bench yourself.
 
 Usage:
@@ -116,6 +124,14 @@ Usage:
       --limit <n>           only the first n requests (time order)
       --mark <phase=ISO>    start of a phase (repeatable), e.g. --mark build=2026-10-01T10:00:00Z
       --json                machine-readable output
+
+  ailovebench project [folder] [--since <date|ISO>] [--until <date|ISO>] [--json] [--write [file.md]]
+      Cost of a project: every Claude Code and Codex session (desktop apps, terminal, exec,
+      subagents) started in this folder (default: the current one) or a subfolder.
+      Tokens, API-equivalent cost by tool and by model, period, active time. Non-interactive.
+      --since / --until     period bounds (2026-10-01 = the whole day, or an ISO date)
+      --write [file.md]     also writes a Markdown report (default docs/couts.md in the folder)
+      --json                machine-readable output
 `);
 
 async function main(argv: string[]): Promise<number> {
@@ -131,6 +147,8 @@ async function main(argv: string[]): Promise<number> {
       return detect(rest);
     case 'measure':
       return measure(rest);
+    case 'project':
+      return projectCommand(rest);
     case 'run':
       return runCommand(rest);
     case 'check':
@@ -483,6 +501,51 @@ async function measure(args: string[]): Promise<number> {
   }
   if (summary.unpricedModels.length) console.log(tr(`\nTokens non chiffrés (pas de prix) : ${summary.unpricedModels.join(', ')}`, `\nUnpriced tokens (no price): ${summary.unpricedModels.join(', ')}`));
   console.log(`\n${DISCLAIMER}\n${pricesLine()}`);
+  return 0;
+}
+
+async function projectCommand(args: string[]): Promise<number> {
+  // `--write` takes an optional value: the next argument when it is a .md path.
+  const argv = [...args];
+  let write: string | true | undefined;
+  const w = argv.findIndex((a) => a === '--write' || a.startsWith('--write='));
+  if (w >= 0) {
+    const [flag] = argv.splice(w, 1);
+    if (flag!.includes('=')) write = flag!.slice('--write='.length) || true;
+    else if (argv[w] && !argv[w]!.startsWith('-') && /\.md$/i.test(argv[w]!)) write = argv.splice(w, 1)[0];
+    else write = true;
+  }
+  const { values, positionals } = parseArgs({
+    args: argv,
+    allowPositionals: true,
+    options: { json: { type: 'boolean' }, since: { type: 'string' }, until: { type: 'string' } },
+  });
+  const dir = path.resolve(positionals[0] ?? '.');
+  const { measureProject, parseBound } = await import('./measure/project.js');
+  const bounds: Record<'since' | 'until', Date | null> = { since: null, until: null };
+  for (const b of ['since', 'until'] as const) {
+    const v = values[b];
+    if (v === undefined) continue;
+    bounds[b] = parseBound(v, b);
+    if (!bounds[b]) {
+      process.stderr.write(tr(`Date illisible pour --${b} : ${v} (ex. 2026-10-01 ou 2026-10-01T09:00:00)\n`, `Unreadable date for --${b}: ${v} (e.g. 2026-10-01 or 2026-10-01T09:00:00)\n`));
+      return 1;
+    }
+  }
+  const report = await measureProject(dir, { paths: defaultAgentPaths(), prices: loadPrices(), ...bounds });
+
+  let written: string | null = null;
+  if (write !== undefined) {
+    const { projectMarkdown, writeProjectMarkdown } = await import('./project.js');
+    written = write === true ? path.join(dir, 'docs', 'couts.md') : path.resolve(write);
+    await writeProjectMarkdown(written, projectMarkdown(report));
+  }
+  if (values.json) {
+    process.stdout.write(JSON.stringify({ ...report, written }, null, 2) + '\n');
+    return 0;
+  }
+  console.log((await import('./project.js')).projectText(report));
+  if (written) console.log(tr(`\nRapport écrit : ${written}`, `\nReport written: ${written}`));
   return 0;
 }
 

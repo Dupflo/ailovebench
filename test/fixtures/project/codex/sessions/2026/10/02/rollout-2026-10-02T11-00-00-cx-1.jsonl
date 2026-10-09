@@ -1,0 +1,4 @@
+{"timestamp":"2026-10-02T11:00:00.000Z","type":"session_meta","payload":{"id":"cx-1","cwd":"/work/site","originator":"Codex Desktop","cli_version":"0.159.3"}}
+{"timestamp":"2026-10-02T11:00:01.000Z","type":"turn_context","payload":{"model":"gpt-5.5"}}
+{"timestamp":"2026-10-02T11:00:10.000Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":10000,"cached_input_tokens":6000,"cache_write_input_tokens":1000,"output_tokens":500,"reasoning_output_tokens":100}}}}
+{"timestamp":"2026-10-02T11:00:20.000Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":12000,"cached_input_tokens":8000,"cache_write_input_tokens":1000,"output_tokens":700,"reasoning_output_tokens":150}}}}

@@ -21,6 +21,9 @@ export interface CodexSession extends ParsedSession {
  * `token_count` events carry a cumulative `total_token_usage`; each request is the delta from the
  * previous total. Codex counts cached input inside `input_tokens` and reasoning inside
  * `output_tokens`, so cached input is moved to `cacheRead` to avoid billing it twice.
+ * Recent rollouts also carry `cache_write_input_tokens`, taken out of `input_tokens` the same way
+ * and billed as a cache write (OpenAI has a single cache-write rate: the 5-minute one is used).
+ * Up to 0.159 it is written but always 0.
  */
 export async function parseCodexRollout(file: string): Promise<CodexSession> {
   const session: CodexSession = {
@@ -63,9 +66,9 @@ export async function parseCodexRollout(file: string): Promise<CodexSession> {
         speed: 'standard',
         sidechain: false,
         usage: {
-          input: d.input - d.cached,
+          input: d.input - d.cached - d.cacheWrite,
           output: d.output,
-          cacheWrite5m: 0,
+          cacheWrite5m: d.cacheWrite,
           cacheWrite1h: 0,
           cacheRead: d.cached,
           reasoning: d.reasoning,
@@ -77,12 +80,13 @@ export async function parseCodexRollout(file: string): Promise<CodexSession> {
   return session;
 }
 
-interface Totals { input: number; cached: number; output: number; reasoning: number }
-const ZERO: Totals = { input: 0, cached: 0, output: 0, reasoning: 0 };
+interface Totals { input: number; cached: number; cacheWrite: number; output: number; reasoning: number }
+const ZERO: Totals = { input: 0, cached: 0, cacheWrite: 0, output: 0, reasoning: 0 };
 
 const totals = (t: Record<string, unknown>): Totals => ({
   input: num(t.input_tokens),
   cached: num(t.cached_input_tokens),
+  cacheWrite: num(t.cache_write_input_tokens),
   output: num(t.output_tokens),
   reasoning: num(t.reasoning_output_tokens),
 });
@@ -90,6 +94,7 @@ const totals = (t: Record<string, unknown>): Totals => ({
 const diff = (a: Totals, b: Totals): Totals => ({
   input: a.input - b.input,
   cached: a.cached - b.cached,
+  cacheWrite: a.cacheWrite - b.cacheWrite,
   output: a.output - b.output,
   reasoning: a.reasoning - b.reasoning,
 });

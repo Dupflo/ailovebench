@@ -87,6 +87,7 @@ AiLoveBench uses your existing subscriptions through the agents' own CLIs. It ne
 ```bash
 ailovebench                                   # wizard (new bench, add to a bench, recent, delete)
 ailovebench detect                            # machine, installed agents, models, subscriptions
+ailovebench project . --write                 # what this project cost, Claude + Codex (see below)
 
 ailovebench bench --models claude-opus-5-5,gpt-6-astra,cursor:composer-2.5 --tasks all
 ailovebench bench --models claude-sonnet-5-5 --tasks fix-01 --into <run-id>   # add jobs to a run
@@ -101,6 +102,31 @@ ailovebench delete <run-id>
 Runs live in `~/.ailovebench/runs/<run-id>/`: each job keeps its sandbox, transcript, QA evidence
 and `job.json`. The interface (CLI, wizard and report) follows your system language — French or
 English (`AILOVEBENCH_LANG=en` to force).
+
+## Project cost
+
+How much did a real project cost in tokens, from the first prompt to delivery, **Claude and Codex
+together**? `ailovebench project` finds every Claude Code and Codex session started in a folder or
+one of its subfolders — desktop apps (Claude Desktop in Claude Code mode, the ChatGPT app in Codex
+mode), terminal, `codex exec`, subagents — and adds them up.
+
+```bash
+npx ailovebench project .                        # this folder: tokens, API-equivalent cost, by tool and by model
+npx ailovebench project . --write                # also writes docs/couts.md (a Markdown report)
+npx ailovebench project ~/sites/acme --since 2026-10-01 --until 2026-10-31 --json
+```
+
+It reads the transcripts on your machine (`~/.claude`, `~/.codex`, or `CLAUDE_CONFIG_DIR` /
+`CODEX_HOME`), never changes them, needs no terminal UI and exits with code 0: your agent can run it
+itself. Only numbers and model names are printed — never your prompts.
+
+Paste this into your project's `CLAUDE.md` / `AGENTS.md` so the agent keeps the count:
+
+> Project cost: when I ask for "the cost report", or at the end of each major step (PRD, mockup,
+> site generation, delivery), run `npx ailovebench project . --write docs/couts.md`, then give me
+> the total and the Claude / Codex split.
+
+French version, an optional Claude Code hook and how sessions are matched: [`docs/project-cost.md`](docs/project-cost.md).
 
 ## The tasks
 
@@ -138,7 +164,7 @@ More in [`docs/how-it-works.md`](docs/how-it-works.md), and the rules every repo
 
 ## Roadmap
 
-- Bench a real project while you build it (cost and quality over time)
+- Bench a real project while you build it: quality over time (its cost: `ailovebench project`)
 - More tasks (API, game), task prompts in English
 - Agent sandbox on Linux
 

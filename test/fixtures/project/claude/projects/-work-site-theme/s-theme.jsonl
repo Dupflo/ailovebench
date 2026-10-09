@@ -1,0 +1,2 @@
+{"type":"user","timestamp":"2026-10-02T10:00:00.000Z","sessionId":"s-theme","cwd":"/work/site/wp-content/themes/child","message":{"role":"user","content":"x"}}
+{"type":"assistant","timestamp":"2026-10-02T10:00:05.000Z","sessionId":"s-theme","cwd":"/work/site/wp-content/themes/child","message":{"id":"t1","model":"claude-sonnet-5-5","usage":{"input_tokens":100,"output_tokens":10,"cache_read_input_tokens":0}}}
