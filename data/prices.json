@@ -1,7 +1,7 @@
 {
   "currency": "USD",
   "unit": "per_million_tokens",
-  "updated_at": "2026-10-01",
+  "updated_at": "2026-10-09",
   "max_age_days": 30,
   "notes": "API-equivalent estimate only — not an invoice. Models missing from this file are reported as 'unpriced', never estimated. Prices are not fetched at run time: refresh this file by hand (updated_at + each model's checked_at). Every result records the table date it was priced with.",
   "models": {
@@ -14,7 +14,7 @@
       "cache_write_1h": 20,
       "cache_read": 0.25,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-fable-5": {
       "provider": "anthropic",
@@ -25,7 +25,7 @@
       "cache_write_1h": 20,
       "cache_read": 1,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-opus-5-5": {
       "provider": "anthropic",
@@ -37,7 +37,7 @@
       "cache_read": 0.2,
       "fast_multiplier": 2,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-opus-5": {
       "provider": "anthropic",
@@ -49,7 +49,7 @@
       "cache_read": 0.5,
       "fast_multiplier": 2,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-opus-4-8": {
       "provider": "anthropic",
@@ -61,7 +61,7 @@
       "cache_read": 0.5,
       "fast_multiplier": 2,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-sonnet-5-5": {
       "provider": "anthropic",
@@ -70,9 +70,9 @@
       "output": 10,
       "cache_write_5m": 2.5,
       "cache_write_1h": 4,
-      "cache_read": 0.2,
+      "cache_read": 0.1,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-sonnet-5": {
       "provider": "anthropic",
@@ -83,7 +83,7 @@
       "cache_write_1h": 4,
       "cache_read": 0.2,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-sonnet-4-6": {
       "provider": "anthropic",
@@ -94,7 +94,7 @@
       "cache_write_1h": 6,
       "cache_read": 0.3,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "claude-haiku-4-5": {
       "provider": "anthropic",
@@ -105,7 +105,27 @@
       "cache_write_1h": 2,
       "cache_read": 0.1,
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
+    },
+    "claude-haiku-5-5": {
+      "provider": "anthropic",
+      "label": "Claude Haiku 5.5",
+      "input": 0.1,
+      "output": 0.5,
+      "cache_write_5m": 0.125,
+      "cache_write_1h": 0.2,
+      "cache_read": 0.01,
+      "long_context": {
+        "threshold_input_tokens": 100000,
+        "input": 0.5,
+        "output": 2.5,
+        "cache_write_5m": 0.625,
+        "cache_write_1h": 1,
+        "cache_read": 0.05
+      },
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "checked_at": "2026-10-09",
+      "notes": "Prompts over 100,000 tokens (cache reads and writes included) use the higher rates."
     },
     "gpt-6-astra": {
       "provider": "openai",
@@ -124,7 +144,7 @@
         "cache_read": 2
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-6.1-sol": {
       "provider": "openai",
@@ -143,7 +163,7 @@
         "cache_read": 0.2
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-6-sol": {
       "provider": "openai",
@@ -162,7 +182,7 @@
         "cache_read": 0.4
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-6-luna": {
       "provider": "openai",
@@ -181,7 +201,7 @@
         "cache_read": 0.02
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-5.6-sol": {
       "provider": "openai",
@@ -200,7 +220,7 @@
         "cache_read": 0.8
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-5.6-terra": {
       "provider": "openai",
@@ -219,7 +239,7 @@
         "cache_read": 0.4
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-5.6-luna": {
       "provider": "openai",
@@ -238,7 +258,7 @@
         "cache_read": 0.04
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-5.5": {
       "provider": "openai",
@@ -257,7 +277,7 @@
         "cache_read": 1
       },
       "source": "https://developers.openai.com/api/docs/pricing",
-      "checked_at": "2026-10-01",
+      "checked_at": "2026-10-09",
       "notes": "No cache-write price listed: cache writes priced as input."
     },
     "composer-2.5": {
@@ -270,7 +290,7 @@
       "cache_read": 0.2,
       "notes": "No cache-write price listed: cache writes priced as input.",
       "source": "https://cursor.com/docs/models",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "composer-2.5-fast": {
       "provider": "cursor",
@@ -282,7 +302,7 @@
       "cache_read": 0.5,
       "notes": "No cache-write price listed: cache writes priced as input.",
       "source": "https://cursor.com/docs/models",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gpt-5.2": {
       "provider": "openai",
@@ -294,7 +314,7 @@
       "cache_read": 0.175,
       "notes": "Prix facturé par Cursor. No cache-write price listed: cache writes priced as input.",
       "source": "https://cursor.com/docs/models",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "gemini-3.7-flash": {
       "provider": "google",
@@ -306,7 +326,7 @@
       "cache_read": 0.075,
       "notes": "Prix facturé par Cursor. No cache-write price listed: cache writes priced as input.",
       "source": "https://cursor.com/docs/models",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "grok-4.7": {
       "provider": "xai",
@@ -318,7 +338,7 @@
       "cache_read": 0.5,
       "notes": "Prix facturé par Cursor. No cache-write price listed: cache writes priced as input.",
       "source": "https://cursor.com/docs/models",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     },
     "grok-4.7-fast": {
       "provider": "xai",
@@ -330,7 +350,7 @@
       "cache_read": 1,
       "notes": "Prix facturé par Cursor. No cache-write price listed: cache writes priced as input.",
       "source": "https://cursor.com/docs/models",
-      "checked_at": "2026-10-01"
+      "checked_at": "2026-10-09"
     }
   }
 }
