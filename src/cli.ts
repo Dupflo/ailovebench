@@ -23,7 +23,7 @@ import { runJob, type JobResult } from './runner/job.js';
 import { runChecks, type ChecksRun } from './checks/run.js';
 import { readFile, writeFile } from 'node:fs/promises';
 import { migrateLegacyHome, runsRoot } from './paths.js';
-import { commandVersion } from './detect/exec.js';
+import { findHerdr, HERDR_INSTALL_CMD } from './detect/herdr-install.js';
 import { normalizeMode, type Mode, type QuotaReading } from './agents/types.js';
 import { tr, dec } from './i18n.js';
 import { DISCLAIMER, pricesLine, fmtCost, fmtDuration, fmtTokens, fmtUsage, table } from './format.js';
@@ -255,8 +255,9 @@ async function runCommand(args: string[]): Promise<number> {
     process.stderr.write(tr(`--mode doit valoir bare ou harness.\n`, `--mode must be bare or harness.\n`));
     return 1;
   }
-  if (!(await commandVersion('herdr'))) {
+  if (!(await findHerdr())) {
     process.stderr.write(tr('herdr est introuvable : il est requis pour piloter les agents.\n', 'herdr not found: it is required to drive the agents.\n'));
+    process.stderr.write(tr(`Lance \`ailovebench\` pour l'installer, ou : ${HERDR_INSTALL_CMD}\n`, `Run \`ailovebench\` to install it, or: ${HERDR_INSTALL_CMD}\n`));
     return 1;
   }
   const task = await loadTask(values.task);

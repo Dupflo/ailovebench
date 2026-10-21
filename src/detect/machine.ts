@@ -1,5 +1,6 @@
 import os from 'node:os';
-import { commandVersion, run } from './exec.js';
+import { run } from './exec.js';
+import { findHerdr } from './herdr-install.js';
 
 export interface Gpu {
   name: string;
@@ -28,7 +29,7 @@ export async function detectMachine(): Promise<Machine> {
     ramGb: Math.round(os.totalmem() / 1024 ** 3),
     gpus: await detectGpus(),
     node: process.versions.node,
-    herdr: await commandVersion('herdr'),
+    herdr: await findHerdr(),
   };
 }
 

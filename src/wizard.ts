@@ -14,7 +14,7 @@ import { probeQuota } from './runner/probe.js';
 import { newRunId } from './runner/sandbox.js';
 import { Herdr } from './herdr/client.js';
 import { loadPrices, normalizeModelId } from './measure/prices.js';
-import { commandVersion } from './detect/exec.js';
+import { ensureHerdr } from './detect/herdr-install.js';
 import { DISCLAIMER, pricesLine } from './format.js';
 import { modelLabel } from './ui/model-label.js';
 import type { Mode } from './agents/types.js';
@@ -26,10 +26,7 @@ const label = modelLabel;
 /** `ailovebench` with no argument: pick models, projects and modes, check the quota, run, report. */
 export async function wizard(): Promise<number> {
   console.log(tr("\nailovebench — Arrêtez de croire les benchmarks des éditeurs d'IA. Benchez vous-même.\n", "\nailovebench — Stop trusting AI companies' benchmarks. Bench yourself.\n"));
-  if (!(await commandVersion('herdr'))) {
-    console.log(tr('herdr est introuvable : il est requis pour piloter les agents.', 'herdr not found: it is required to drive the agents.'));
-    return 1;
-  }
+  if (!(await ensureHerdr((message) => confirm({ message, default: true })))) return 1;
   for (;;) {
     const code = await mainMenu();
     if (code !== BACK) return code;

@@ -76,7 +76,7 @@ On first use it downloads the headless browser used for QA (once).
 |---|---|
 | **OS** | macOS recommended (agent sandbox). Other systems run without the sandbox; transcripts are still checked. |
 | **Node** | 20 or later |
-| **herdr** | the terminal workspace manager for AI coding agents, used to drive each agent session |
+| **herdr** | the terminal workspace manager for AI coding agents, used to drive each agent session. If it is missing, `ailovebench` offers to install it with the official script (`curl -fsSL https://herdr.dev/install.sh \| sh`, into `~/.local/bin`, no sudo) |
 | **Agents** | any of [Claude Code](https://claude.com/claude-code), Codex CLI, Cursor CLI (`cursor-agent`) — installed and logged in |
 | **ffmpeg** | only for the motion design task (video checks) |
 
