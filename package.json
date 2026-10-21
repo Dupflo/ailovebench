@@ -1,6 +1,6 @@
 {
   "name": "ailovebench",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Stop trusting AI companies' benchmarks. Bench your own AI coding agents (Claude Code, Codex, Cursor) on real tasks, on your machine, with your subscriptions.",
   "keywords": [
     "benchmark",
